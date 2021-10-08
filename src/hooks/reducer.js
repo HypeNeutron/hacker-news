@@ -1,4 +1,3 @@
-//#Retype String to Variable Prevent Mistake Typing----
 import {
   SET_LOADING,
   SET_STORIES,
@@ -8,44 +7,61 @@ import {
 } from './actions';
 
 const reducer = (state, action) => {
+  const load = action.payload;
+
   switch (action.type) {
     case SET_LOADING: {
       return { ...state, isLoading: true };
     }
 
     case SET_STORIES: {
+      const dataSorted = load.hits.sort(
+        (a, b) => b.created_at_i - a.created_at_i
+      );
       return {
         ...state,
         isLoading: false,
-        hits: action.payload.hits,
-        nbPages: action.payload.nbPages,
+        hits: dataSorted,
+        nbPages: load.nbPages,
       };
     }
 
     case REMOVE_STORY: {
       return {
         ...state,
-        hits: state.hits.filter((story) => story.objectID !== action.payload),
+        hits: state.hits.filter((story) => story.objectID !== load),
       };
     }
 
-    case HANDLE_SEARCH: {
-      return { ...state, query: action.payload, page: 0 };
+    case HANDLE_PAGE: {
+      let nextPage;
+      let prevPage;
+
+      switch (load) {
+        case 'inc': {
+          nextPage = state.page + 1;
+          if (nextPage > state.nbPages - 1) {
+            nextPage = 0;
+          }
+          return { ...state, page: nextPage };
+        }
+        case 'dec': {
+          prevPage = state.page - 1;
+          if (prevPage < 0) {
+            prevPage = state.nbPages - 1;
+          }
+          return { ...state, page: prevPage };
+        }
+        default:
+          break;
+      }
+      return { ...state };
     }
 
-    case HANDLE_PAGE: {
-      if (action.payload === 'inc') {
-        let nextPage = state.page + 1;
-        nextPage > state.nbPages - 1 && (nextPage = 0);
-        return { ...state, page: nextPage };
-      }
-      if (action.payload === 'dec') {
-        let prevPage = state.page - 1;
-        prevPage < 0 && (prevPage = state.nbPages - 1);
-        return { ...state, page: prevPage };
-      }
-      break;
+    case HANDLE_SEARCH: {
+      return { ...state, query: load, page: 0 };
     }
+
     default:
       throw new Error(`no matching '${action.type}' action type`);
   }

@@ -11,7 +11,6 @@ import {
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?';
 const AppContext = React.createContext();
 
-//#state
 const initialState = {
   isLoading: true,
   hits: [],
@@ -49,10 +48,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: HANDLE_PAGE, payload: value });
   };
 
-  // console.log(Math.floor(new Date('2019').getTime() / 1000)); Time in Second
   useEffect(() => {
     fetchStories(
-      `${API_ENDPOINT}query=${state.query}&numericFilters=created_at_i>=1546300800&page=${state.page}`
+      // timestamps unix >2019 https://www.epochconverter.com/
+      `${API_ENDPOINT}query=${state.query}&numericFilters=created_at_i>1546300800&page=${state.page}`
     );
   }, [state.page, state.query]);
 

@@ -1,8 +1,8 @@
 module.exports = {
   env: {
-    // jest: true,
     browser: true,
     node: true,
+    jest: true,
     es6: true,
     es2021: true,
   },
@@ -12,7 +12,9 @@ module.exports = {
     'plugin:import/warnings',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'airbnb-base',
+    'airbnb-base/legacy',
+    'plugin:prettier/recommended',
+    'prettier',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -21,11 +23,14 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', 'react-hooks'],
+  plugins: ['react', 'react-hooks', 'prettier'],
   rules: {
-    'react/prop-types': 'off',
-    'no-unused-vars': 'off',
+    'prettier/prettier': 'off',
+    'no-param-reassign': 'warn',
+    'no-console': 'warn',
+    'no-unused-vars': 'warn',
     'linebreak-style': [0, 'error', 'windows'],
+    'react/prop-types': 'warn',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
   },

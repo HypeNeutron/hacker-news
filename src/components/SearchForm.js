@@ -1,20 +1,43 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useGlobalContext } from '../hooks/context';
 
-const SearchForm = () => {
+function SearchForm() {
   const { handleSearch, query } = useGlobalContext();
 
   return (
-    <form className="search-form" onSubmit={(e) => e.preventDefault()}>
+    <Form onSubmit={(e) => e.preventDefault()}>
       <h2>search hacker news</h2>
       <input
-        type="text"
-        className="form-input"
+        type='text'
+        className='formInput'
         value={query}
         onChange={(e) => handleSearch(e.target.value)}
       />
-    </form>
+    </Form>
   );
-};
+}
 
 export default SearchForm;
+
+const Form = styled.form`
+  width: 90vw;
+  max-width: 1170px;
+  margin: 0 auto;
+  margin-top: 5rem;
+  margin-bottom: 3rem;
+
+  .formInput {
+    font-size: 1rem;
+    max-width: 600px;
+    width: 100%;
+    padding: 1em;
+    border: none;
+    border-bottom: 3px solid var(--clr-grey-8);
+    margin-top: 1em;
+    background: transparent;
+    color: var(--clr-grey-3);
+    text-transform: uppercase;
+    letter-spacing: var(--spacing);
+  }
+`;

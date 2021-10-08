@@ -1,46 +1,48 @@
 import React from 'react';
+import styled from 'styled-components';
 import moment from 'moment';
 import { useGlobalContext } from '../hooks/context';
 
 const Stories = () => {
   const { isLoading, hits, removeStory } = useGlobalContext();
+
   if (isLoading) {
-    return <div className="loading"></div>;
+    return <div className='loading'></div>;
   }
 
   return (
-    <section className="stories">
+    <StoriesSection>
       {hits.map((story) => {
         const {
           objectID,
           title,
-          num_comments,
+          num_comments: NumCm,
           url,
           points,
           author,
-          created_at,
+          created_at: caAt,
         } = story;
 
-        const date = moment(created_at).format('lll');
-
+        const date = moment(caAt).format('lll');
         return (
-          <article key={objectID} className="story">
-            <h4 className="title">{title}</h4>
-            <p className="info">
+          <article key={objectID} className='story-card'>
+            <h4 className='title'>{title}</h4>
+            <p className='info'>
               {points} points by <span>{author} | </span>
-              {num_comments} comments
+              {NumCm} comments
             </p>
-            <p className="info">{date}</p>
-            <div>
+            <p className='info'>{date}</p>
+
+            <div className='storyCard-btn'>
               <a
                 href={url}
-                className="read-link"
-                target="_blank"
-                rel="noopener noreferrer">
+                className='readMore'
+                target='_blank'
+                rel='noopener noreferrer'>
                 read more
               </a>
               <button
-                className="remove-btn"
+                className='removeBtn'
                 onClick={() => removeStory(objectID)}>
                 remove
               </button>
@@ -48,8 +50,56 @@ const Stories = () => {
           </article>
         );
       })}
-    </section>
+    </StoriesSection>
   );
 };
 
 export default Stories;
+
+const StoriesSection = styled.section`
+  width: 90vw;
+  max-width: 1170px;
+  margin: 0 auto;
+  margin-bottom: 5rem;
+  display: grid;
+  gap: 2rem;
+
+  @media screen and (min-width: 992px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* align-items: start; */
+  }
+
+  .story-card {
+    background: var(--clr-white);
+    border-radius: var(--radius);
+    padding: 1rem 2rem;
+    .title {
+      line-height: 1.5;
+      margin-bottom: 0.25rem;
+    }
+
+    .info {
+      margin-bottom: 0.5rem;
+      color: var(--clr-grey-5);
+    }
+  }
+
+  .storyCard-btn {
+    .readMore {
+      font-size: 0.85rem;
+      margin-right: 0.75rem;
+      text-transform: capitalize;
+      color: var(--clr-primary-5);
+    }
+
+    .removeBtn {
+      background: transparent;
+      color: var(--clr-red-dark);
+      border-color: transparent;
+      cursor: pointer;
+      text-transform: capitalize;
+      font-size: 0.85rem;
+    }
+  }
+`;

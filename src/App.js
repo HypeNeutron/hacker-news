@@ -1,7 +1,7 @@
 import React from 'react';
-import SearchForm from './SearchForm';
-import Stories from './Stories';
-import NavigateBtn from './NavigateBtn';
+import SearchForm from './components/SearchForm';
+import Stories from './components/Stories';
+import NavigateBtn from './components/NavigateBtn';
 function App() {
   return (
     <>
