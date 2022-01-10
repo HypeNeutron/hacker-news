@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { useGlobalContext } from '../hooks/context';
 
-const Stories = () => {
+export default function Stories() {
   const { isLoading, hits, removeStory } = useGlobalContext();
 
   if (isLoading) {
-    return <div className='loading'></div>;
+    return <div className='loading' />;
   }
 
   return (
@@ -42,6 +42,7 @@ const Stories = () => {
                 read more
               </a>
               <button
+                type='button'
                 className='removeBtn'
                 onClick={() => removeStory(objectID)}>
                 remove
@@ -52,9 +53,7 @@ const Stories = () => {
       })}
     </StoriesSection>
   );
-};
-
-export default Stories;
+}
 
 const StoriesSection = styled.section`
   width: 90vw;

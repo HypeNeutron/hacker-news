@@ -7,13 +7,19 @@ function NavigateBtn() {
 
   return (
     <Navigator>
-      <button onClick={() => handlePage('dec')} disabled={isLoading}>
+      <button
+        onClick={() => handlePage('dec')}
+        type='button'
+        disabled={isLoading}>
         Prev
       </button>
       <p>
         {page + 1} of {nbPages}
       </p>
-      <button onClick={() => handlePage('inc')} disabled={isLoading}>
+      <button
+        onClick={() => handlePage('inc')}
+        type='button'
+        disabled={isLoading}>
         Next
       </button>
     </Navigator>

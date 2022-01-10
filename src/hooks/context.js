@@ -19,7 +19,7 @@ const initialState = {
   nbPages: 0,
 };
 
-const AppProvider = ({ children }) => {
+function AppProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const fetchStories = async (url) => {
@@ -55,13 +55,19 @@ const AppProvider = ({ children }) => {
     );
   }, [state.page, state.query]);
 
+  const valueMemo = React.useMemo(() => {
+    return {
+      ...state,
+      removeStory,
+      handleSearch,
+      handlePage,
+    };
+  }, [state]);
+
   return (
-    <AppContext.Provider
-      value={{ ...state, removeStory, handleSearch, handlePage }}>
-      {children}
-    </AppContext.Provider>
+    <AppContext.Provider value={valueMemo}>{children}</AppContext.Provider>
   );
-};
+}
 
 const useGlobalContext = () => {
   return useContext(AppContext);
