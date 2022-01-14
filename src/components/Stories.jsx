@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import moment from 'moment';
+import { format } from 'date-fns';
 import { useGlobalContext } from '../hooks/context';
 
 export default function Stories() {
   const { isLoading, hits, removeStory } = useGlobalContext();
 
   if (isLoading) {
-    return <div className='loading' />;
+    return <div className="loading" />;
   }
 
   return (
@@ -23,28 +23,30 @@ export default function Stories() {
           created_at: caAt,
         } = story;
 
-        const date = moment(caAt).format('lll');
+        const date = format(new Date(caAt), 'MMM d, yyyy KK:mm aa');
         return (
-          <article key={objectID} className='story-card'>
-            <h4 className='title'>{title}</h4>
-            <p className='info'>
+          <article key={objectID} className="story-card">
+            <h4 className="title">{title}</h4>
+            <p className="info">
               {points} points by <span>{author} | </span>
               {NumCm} comments
             </p>
-            <p className='info'>{date}</p>
+            <p className="info">{date}</p>
 
-            <div className='storyCard-btn'>
+            <div className="storyCard-btn">
               <a
                 href={url}
-                className='readMore'
-                target='_blank'
-                rel='noopener noreferrer'>
+                className="readMore"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 read more
               </a>
               <button
-                type='button'
-                className='removeBtn'
-                onClick={() => removeStory(objectID)}>
+                type="button"
+                className="removeBtn"
+                onClick={() => removeStory(objectID)}
+              >
                 remove
               </button>
             </div>

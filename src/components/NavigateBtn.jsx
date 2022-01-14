@@ -9,8 +9,9 @@ function NavigateBtn() {
     <Navigator>
       <button
         onClick={() => handlePage('dec')}
-        type='button'
-        disabled={isLoading}>
+        type="button"
+        disabled={isLoading}
+      >
         Prev
       </button>
       <p>
@@ -18,8 +19,9 @@ function NavigateBtn() {
       </p>
       <button
         onClick={() => handlePage('inc')}
-        type='button'
-        disabled={isLoading}>
+        type="button"
+        disabled={isLoading}
+      >
         Next
       </button>
     </Navigator>

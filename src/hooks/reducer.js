@@ -6,10 +6,8 @@ import {
   HANDLE_SEARCH,
 } from './actions';
 
-const reducer = (state, action) => {
-  const load = action.payload;
-
-  switch (action.type) {
+const reducer = (state, { type, payload: load }) => {
+  switch (type) {
     case SET_LOADING: {
       return { ...state, isLoading: true };
     }
@@ -36,7 +34,6 @@ const reducer = (state, action) => {
     case HANDLE_PAGE: {
       let nextPage;
       let prevPage;
-
       switch (load) {
         case 'inc': {
           nextPage = state.page + 1;
@@ -63,7 +60,7 @@ const reducer = (state, action) => {
     }
 
     default:
-      throw new Error(`no matching '${action.type}' action type`);
+      throw new Error(`no matching '${type}' action type`);
   }
 };
 export default reducer;

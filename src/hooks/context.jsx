@@ -32,7 +32,7 @@ function AppProvider({ children }) {
         payload: { hits: data.hits, nbPages: data.nbPages },
       });
     } catch (error) {
-      console.error(error);
+      throw new Error();
     }
   };
 

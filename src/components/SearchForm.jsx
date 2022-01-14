@@ -9,8 +9,8 @@ function SearchForm() {
     <Form onSubmit={(e) => e.preventDefault()}>
       <h2>search hacker news</h2>
       <input
-        type='text'
-        className='formInput'
+        type="text"
+        className="formInput"
         value={query}
         onChange={(e) => handleSearch(e.target.value)}
       />
