@@ -1,3 +1,4 @@
+import { useDebouncedCallback } from 'use-debounce';
 import React, { useContext, useEffect, useReducer } from 'react';
 import reducer from './reducer';
 import {
@@ -10,11 +11,10 @@ import {
 
 const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?';
 const AppContext = React.createContext();
-
 const initialState = {
   isLoading: true,
   hits: [],
-  query: 'react',
+  query: 'react 18',
   page: 0,
   nbPages: 0,
 };
@@ -48,12 +48,16 @@ function AppProvider({ children }) {
     dispatch({ type: HANDLE_PAGE, payload: value });
   };
 
-  useEffect(() => {
+  const fetchDebounce = useDebouncedCallback((page, query) => {
     fetchStories(
       // timestamps unix >2019 https://www.epochconverter.com/
-      `${API_ENDPOINT}query=${state.query}&numericFilters=created_at_i>1546300800&page=${state.page}`
+      `${API_ENDPOINT}query=${query}&numericFilters=created_at_i>1546300800&page=${page}`
     );
-  }, [state.page, state.query]);
+  }, 1000);
+
+  useEffect(() => {
+    fetchStories(fetchDebounce(state.page, state.query));
+  }, [state.page, state.query, fetchDebounce]);
 
   const valueMemo = React.useMemo(() => {
     return {
