@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useGlobalContext } from '../context';
 
 function SearchForm() {
   const { handleSearch, query } = useGlobalContext();
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.select();
+  }, [inputRef]);
 
   return (
     <Form onSubmit={(e) => e.preventDefault()}>
       <h2>search hacker news</h2>
       <input
         type="text"
+        ref={inputRef}
         className="formInput"
         value={query}
         onChange={(e) => handleSearch(e.target.value)}

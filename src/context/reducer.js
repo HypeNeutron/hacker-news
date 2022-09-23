@@ -1,5 +1,6 @@
 import {
   SET_LOADING,
+  SET_ERROR,
   SET_STORIES,
   REMOVE_STORY,
   HANDLE_PAGE,
@@ -9,9 +10,17 @@ import {
 const reducer = (state, { type, payload: load }) => {
   switch (type) {
     case SET_LOADING: {
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: load };
     }
-
+    case SET_ERROR:
+      return {
+        ...state,
+        error: {
+          ...state.error,
+          state: load.state,
+          message: load.message || null,
+        },
+      };
     case SET_STORIES: {
       const dataSorted = load.hits.sort(
         (a, b) => b.created_at_i - a.created_at_i
@@ -34,6 +43,7 @@ const reducer = (state, { type, payload: load }) => {
     case HANDLE_PAGE: {
       let nextPage;
       let prevPage;
+
       switch (load) {
         case 'inc': {
           nextPage = state.page + 1;
