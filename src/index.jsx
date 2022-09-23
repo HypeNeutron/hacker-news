@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import React from 'react';
 import './index.css';
 import App from './App';
-import { AppProvider } from './hooks/context';
+import { AppProvider } from './context';
 
 const root = createRoot(document.getElementById('root'));
 root.render(

@@ -1,8 +1,3 @@
-/*
-=============== 
-Variables
-===============
-*/
 :root {
   /* dark shades of primary color*/
   --clr-primary-1: hsl(205, 86%, 17%);
@@ -46,12 +41,6 @@ Variables
   --text-bear: 1rem;
   --text-rat: .5rem;
 }
-
-/*
-=============== 
-Global Styles
-===============
-*/
 
 *,
 ::after,

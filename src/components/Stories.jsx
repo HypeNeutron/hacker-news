@@ -1,14 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { format } from 'date-fns';
-import { useGlobalContext } from '../hooks/context';
+import { useGlobalContext } from '../context';
 
 export default function Stories() {
   const { isLoading, hits, removeStory } = useGlobalContext();
 
-  if (isLoading) {
-    return <div className="loading" />;
-  }
+  if (isLoading) return <div className="loading" />;
 
   return (
     <StoriesSection>

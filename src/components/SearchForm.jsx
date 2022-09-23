@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useGlobalContext } from '../hooks/context';
+import { useGlobalContext } from '../context';
 
 function SearchForm() {
   const { handleSearch, query } = useGlobalContext();
